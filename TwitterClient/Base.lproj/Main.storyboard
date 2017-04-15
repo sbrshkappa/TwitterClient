@@ -64,7 +64,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tweets" id="AOx-br-jim"/>
+                    <navigationItem key="navigationItem" title="Tweets" id="AOx-br-jim">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="csj-pS-Qzq">
+                            <connections>
+                                <action selector="onLogoutButton:" destination="pYx-Ve-zr9" id="aAf-J0-alF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryM-Gc-iFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -73,7 +79,7 @@
         <!--Navigation Controller-->
         <scene sceneID="TA6-Kh-iBu">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GsG-m0-cvJ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="GsG-m0-cvJ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qLk-iK-x0h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
