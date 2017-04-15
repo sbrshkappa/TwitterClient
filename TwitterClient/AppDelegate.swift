@@ -49,15 +49,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         twitterClient?.fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             print("I got the Access Token!")
+            
+            //Getting User Data
+            
             twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-                let user = response as? NSDictionary
-                print("name: \(user!["name"])")
+                let userDictionary = response as! NSDictionary
+//               print("user: \(user)")
+                let user = User(dictionary: userDictionary)
+                
+                print("name: \(user.name)")
+                print("tagline: \(user.tagline)")
+                print("screen name: \(user.screenName)")
+                print("profile image url: \(user.profileURL)")
+               
             }, failure: { (task: URLSessionDataTask?, error: Error) in
                 print("Error: \(error.localizedDescription)")
             })
+            
+            //Getting Tweet Data
+            
+            twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+                let tweetDictionaries = response as! [NSDictionary]
+                let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
+                
+                for tweet in tweets {
+                    print("\(tweet.text!)")
+                }
+                
+            }, failure: { (task: URLSessionDataTask?, error: Error) in
+                print("Error: \(error.localizedDescription)")
+            })
+            
         }, failure: { (error: Error?) in
             print("error: \(error?.localizedDescription)")
         })
+        
+        
+        
         
         return true
     }
