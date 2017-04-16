@@ -8,19 +8,24 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tweetsTableView.delegate = self
+        tweetsTableView.dataSource = self
+        
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             
             self.tweets = tweets
-            for tweet in tweets {
-                print(tweet.text ?? "Default Tweet String")
-            }
+            self.tweetsTableView.reloadData()
+//            for tweet in tweets {
+//                print(tweet.text ?? "Default Tweet String")
+//            }
         }, failure: { (error: Error) in
             print("Error fetching Tweets. Error: \(error.localizedDescription)")
         })
@@ -35,6 +40,21 @@ class TweetsViewController: UIViewController {
     
     @IBAction func onLogoutButton(_ sender: Any) {
         TwitterClient.sharedInstance?.logout()
+    }
+    
+    //TableView Delegates
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tweets != nil {
+            return tweets.count
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
+        return cell
     }
 
     /*
