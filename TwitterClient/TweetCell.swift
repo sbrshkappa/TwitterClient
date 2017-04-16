@@ -12,11 +12,18 @@ class TweetCell: UITableViewCell {
     
 
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var twitterHandleLabel: UILabel!
+    @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var profileImage: UIImageView!
     
     
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
+            nameLabel.text = tweet.author
+            twitterHandleLabel.text = tweet.authorHandle
+            profileImage.setImageWith(tweet.profileImageUrl!)
         }
     }
     
