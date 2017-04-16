@@ -186,6 +186,11 @@
                                 <action selector="onLogoutButton:" destination="pYx-Ve-zr9" id="aAf-J0-alF"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="compose" id="vWo-wU-oVe">
+                            <connections>
+                                <segue destination="uIV-mr-hXV" kind="push" id="Bis-7L-sv6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tweetsTableView" destination="7co-qD-vCS" id="cVw-fz-zV3"/>
@@ -194,6 +199,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryM-Gc-iFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2223.1999999999998" y="139.880059970015"/>
+        </scene>
+        <!--Compose View Controller-->
+        <scene sceneID="QaL-7X-cye">
+            <objects>
+                <viewController id="uIV-mr-hXV" customClass="ComposeViewController" customModule="TwitterClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rCB-C5-D5O"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Du-N2-EE8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0iI-sG-3ef">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jrm-ZX-e3S"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i84-zX-par" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3094" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TA6-Kh-iBu">
@@ -215,6 +239,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="compose" width="16" height="16"/>
         <image name="likeAction" width="27" height="36"/>
         <image name="replyAction" width="32" height="36"/>
         <image name="retweetAction" width="37" height="36"/>

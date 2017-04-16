@@ -27,6 +27,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tweetsTableView.estimatedRowHeight = 200
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
+        let twitterColor = UIColor(red: 29/256, green: 202/256, blue: 255/256, alpha: 1.0)
+        navigationController?.navigationBar.barTintColor = twitterColor
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
         //Getting HomeTimeline data
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
