@@ -12,23 +12,30 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet]!
+    let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Initializing a Refresh Control
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Get Latest Tweets")
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        tweetsTableView.addSubview(refreshControl)
+        
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
+        tweetsTableView.estimatedRowHeight = 200
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
         
+        //Getting HomeTimeline data
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-            
             self.tweets = tweets
             self.tweetsTableView.reloadData()
-//            for tweet in tweets {
-//                print(tweet.text ?? "Default Tweet String")
-//            }
         }, failure: { (error: Error) in
             print("Error fetching Tweets. Error: \(error.localizedDescription)")
         })
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -36,6 +43,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl){
+        
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tweetsTableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }, failure: { (error: Error) in
+            print("Error Refreshing. Error: \(error.localizedDescription)")
+        })
     }
     
     @IBAction func onLogoutButton(_ sender: Any) {
