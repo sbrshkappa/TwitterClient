@@ -18,7 +18,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var retweetLabel: UILabel!
     @IBOutlet weak var retweetInactiveImage: UIImageView!
-    
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     
     var tweet: Tweet! {
         didSet {
@@ -35,11 +36,30 @@ class TweetCell: UITableViewCell {
                 retweetInactiveImage.isHidden = true
             }
             timestampLabel.text = tweet.timeAgo
+            
+            if (tweet.retweeted)! {
+                retweetButton.isSelected = true
+            } else {
+                retweetButton.isSelected = false
+            }
+            
+            if (tweet.favorited)! {
+                favoriteButton.isSelected = true
+            } else {
+                favoriteButton.isSelected = false
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        retweetButton.setImage(UIImage(named: "retweetAction"), for: .normal)
+        retweetButton.setImage(UIImage(named: "retweetActionOn"), for: .selected)
+        
+        favoriteButton.setImage(UIImage(named: "likeAction"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "likeActionOn"), for: .selected)
+        
         // Initialization code
     }
 
@@ -49,4 +69,61 @@ class TweetCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func onRetweet(_ sender: Any) {
+        let button = sender as? UIButton
+        
+        if !(button?.isSelected)! {
+            
+            button?.isSelected = true
+            //Gotta change the image and send a Retweet POST
+            TwitterClient.sharedInstance?.retweet(id: tweet.tweetID!, success: { (tweet: Tweet) in
+                
+            }, failure: { (error: Error) in
+                print("Error while Retweeting: \(error.localizedDescription)")
+            })
+        } else {
+            button?.isSelected = false
+            TwitterClient.sharedInstance?.unRetweet(id: tweet.tweetID!, success: { (tweet: Tweet) in
+                
+            }, failure: { (error: Error) in
+                print("Error while UnRetweeting: \(error.localizedDescription)")
+            })
+
+        }
+    }
+    
+    
+    
+    @IBAction func onFavorite(_ sender: Any) {
+        
+        let button = sender as? UIButton
+        
+        if !(button?.isSelected)! {
+            
+            button?.isSelected = true
+            TwitterClient.sharedInstance?.favorite(id: tweet.tweetID!, success: { (tweet: Tweet) in
+                
+            }, failure: { (error: Error) in
+                print("Error while trying to Favorite: \(error.localizedDescription)")
+            })
+            
+        } else {
+            
+            button?.isSelected = false
+            TwitterClient.sharedInstance?.unFavorite(id: tweet.tweetID!, success: { (tweet: Tweet) in
+                
+            }, failure: { (error: Error) in
+                print("Error while trying to UnFavorite: \(error.localizedDescription)")
+            })
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 }

@@ -61,6 +61,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    // Get the Home TimeLine
     func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         //Getting Tweet Data
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -71,6 +72,8 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    //Get the Current User
 
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         //Getting User Data
@@ -86,6 +89,8 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    //Post a tweet
+    
     func sendTweet(message: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         //Posting a Tweet
         let params = ["status": message]
@@ -93,10 +98,71 @@ class TwitterClient: BDBOAuth1SessionManager {
         post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweetSuccessResponse = response as? NSDictionary
             let tweetSuccess = Tweet(dictionary: tweetSuccessResponse!)
+            print(tweetSuccess.text ?? "Simple deafult")
             success(tweetSuccess)
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         }
         
     }
+    
+    //Post a Retweet
+    
+    func retweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        
+        let retweetEndPoint = "https://api.twitter.com/1.1/statuses/retweet/\(id).json"
+        post(retweetEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let retweetSuccessResponse  = response as? NSDictionary
+            let retweetSuccess = Tweet(dictionary: retweetSuccessResponse!)
+            success(retweetSuccess)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
+    //Post an UnRetweet
+    
+    func unRetweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let unRetweetEndPoint = "https://api.twitter.com/1.1/statuses/retweet/\(id).json"
+        post(unRetweetEndPoint, parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let unRetweetSuccessResponse = response as? NSDictionary
+            let unRetweetSuccess = Tweet(dictionary: unRetweetSuccessResponse!)
+            success(unRetweetSuccess)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
+    
+    //Favorites a Tweet
+    
+    func favorite(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let params = ["id": id]
+        post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let favoriteSuccessResponse = response as? NSDictionary
+            let favoriteResponse = Tweet(dictionary: favoriteSuccessResponse!)
+            success(favoriteResponse)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
+    
+    //Unfavorite a Tweet
+    
+    func unFavorite(id: String,success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()){
+        let params = ["id": id]
+        post("1.1/favorites/destroy.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let unFavoriteSuccessResponse = response as? NSDictionary
+            let unFavoriteResponse = Tweet(dictionary: unFavoriteSuccessResponse!)
+            success(unFavoriteResponse)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
 }

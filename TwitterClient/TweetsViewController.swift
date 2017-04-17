@@ -13,6 +13,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet]!
     let refreshControl = UIRefreshControl()
+    
+    var retweetStates = [IndexPath:Bool]()
+    var favoriteStates = [IndexPath:Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

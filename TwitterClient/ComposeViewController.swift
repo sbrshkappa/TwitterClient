@@ -62,7 +62,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         //Posting the Tweet
         if ((tweetText?.characters.count)! > 0){
             TwitterClient.sharedInstance?.sendTweet(message: tweetText!, success: { (tweet: Tweet) in
-                    print("Successfully posted a Tweet with text: \(tweet.text)")
+                
+                self.dismiss(animated: true, completion: nil)
+                
             }, failure: { (error: Error) in
                 print("Error while posting Tweet: \(error.localizedDescription)")
             })

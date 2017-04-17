@@ -19,6 +19,9 @@ class Tweet: NSObject {
     var timeAgo: String?
     var retweetCount: Int = 0
     var favortiesCount: Int = 0
+    var tweetID: String?
+    var retweeted: Bool?
+    var favorited: Bool?
     
     func isRetweet(dictionary: NSDictionary) -> Bool{
         let entities = dictionary["entities"] as? NSDictionary
@@ -37,7 +40,7 @@ class Tweet: NSObject {
     
     init(dictionary: NSDictionary){
         
-        //print(dictionary)
+        print(dictionary)
         
         let isARetweet = dictionary["retweeted_status"] != nil
         if isARetweet {
@@ -54,6 +57,7 @@ class Tweet: NSObject {
                     
                 } //if realAuthor
                 text = realDictionary["text"] as? String
+                tweetID = realDictionary["id_str"] as? String
                 
                 let timeStampString = realDictionary["created_at"] as? String
                 if let timeStampString = timeStampString{
@@ -80,11 +84,13 @@ class Tweet: NSObject {
                         
                         timeAgo = "\(min) min"
                     } else {
-                        timeAgo = "A Moment Ago"
+                        timeAgo = "Just now"
                     }
                     
-                    retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
-                    favortiesCount = (dictionary["favourites_count"] as? Int) ?? 0
+                    retweeted = realDictionary["retweeted"] as? Bool
+                    retweetCount = (realDictionary["retweet_count"] as? Int) ?? 0
+                    favorited = realDictionary["favorited"] as? Bool
+                    favortiesCount = (realDictionary["favourites_count"] as? Int) ?? 0
                 }
                 //Who retweeted it?
                 let retweeter = dictionary["user"] as? NSDictionary
@@ -104,6 +110,7 @@ class Tweet: NSObject {
             }
             
             text = dictionary["text"] as? String
+            tweetID = dictionary["id_str"] as? String
             
             let timeStampString = dictionary["created_at"] as? String
             if let timeStampString = timeStampString{
@@ -130,10 +137,12 @@ class Tweet: NSObject {
                 
                     timeAgo = "\(min) min"
             } else {
-                    timeAgo = "A Moment Ago"
+                    timeAgo = "Just now"
             }
             
+            retweeted = dictionary["retweeted"] as? Bool
             retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
+            favorited = dictionary["favorited"] as? Bool
             favortiesCount = (dictionary["favourites_count"] as? Int) ?? 0
         }
       }
