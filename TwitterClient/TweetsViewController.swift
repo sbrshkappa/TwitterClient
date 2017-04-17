@@ -33,6 +33,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         let twitterColor = UIColor(red: 29/256, green: 202/256, blue: 255/256, alpha: 1.0)
         navigationController?.navigationBar.barTintColor = twitterColor
         navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
         //Getting HomeTimeline data
         TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
@@ -45,6 +46,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //Everytime we comeback to this View reload the Table with New Data
+        //Getting HomeTimeline data
+        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tweetsTableView.reloadData()
+        }, failure: { (error: Error) in
+            print("Error fetching Tweets. Error: \(error.localizedDescription)")
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,6 +92,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if( segue.identifier == "tweetDetailSegue" ){
+            let indexPath = tweetsTableView.indexPath(for: sender as! TweetCell)!
+            print(indexPath.row)
+            let tweet = tweets[indexPath.row]
+            let tweetDetailVC = segue.destination as! TweetDetailViewController
+            tweetDetailVC.tweet = tweet
+        }
     }
 
     /*

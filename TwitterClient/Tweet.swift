@@ -16,6 +16,7 @@ class Tweet: NSObject {
     var profileImageUrl: URL?
     var text: String?
     var timestamp: Date?
+    var timestampAsString: String?
     var timeAgo: String?
     var retweetCount: Int = 0
     var favortiesCount: Int = 0
@@ -40,7 +41,7 @@ class Tweet: NSObject {
     
     init(dictionary: NSDictionary){
         
-        print(dictionary)
+        //print(dictionary)
         
         let isARetweet = dictionary["retweeted_status"] != nil
         if isARetweet {
@@ -64,6 +65,8 @@ class Tweet: NSObject {
                     let formatter = DateFormatter()
                     formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
                     timestamp = formatter.date(from: timeStampString)
+                    formatter.dateFormat = "MM/dd/yy hh:mm a"
+                    timestampAsString = formatter.string(from: timestamp!)
                     
                     let timeInterval = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: timestamp!, to: Date())
                     if let year = timeInterval.year, year > 0 {
@@ -117,6 +120,7 @@ class Tweet: NSObject {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "EEE MMM d HH:mm:ss Z y"
                 timestamp = formatter.date(from: timeStampString)
+                
             
             let timeInterval = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: timestamp!, to: Date())
             if let year = timeInterval.year, year > 0 {
