@@ -182,4 +182,18 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
     
+    //Get a Tweet by ID
+    
+    func getTweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()){
+        let params = ["id": id]
+        post("1.1/statuses/show.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetSuccessResponse = response as? NSDictionary
+            let tweetResponse = Tweet(dictionary: tweetSuccessResponse!)
+            success(tweetResponse)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        }
+    }
+    
 }

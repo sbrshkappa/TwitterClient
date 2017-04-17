@@ -41,6 +41,10 @@ class TweetDetailViewController: UIViewController {
         profileImage.setImageWith((tweet?.profileImageUrl!)!)
         text.text = tweet?.text
         timestampLabel.text = tweet?.timestampAsString
+        retweetCountLabel.text = String(describing: (tweet?.retweetCount)!)
+        favoritesCountLabel.text = String(describing: (tweet?.favortiesCount)!)
+        
+        
         if(tweet?.retweetedBy != nil){
             retweetedByLabel.isHidden = false
             retweetedByLabel.text = "\((tweet?.retweetedBy)!)" + " Retweeted"
@@ -81,6 +85,7 @@ class TweetDetailViewController: UIViewController {
             button?.isSelected = true
             TwitterClient.sharedInstance?.favorite(id: (tweet?.tweetID!)!, success: { (tweet: Tweet) in
                 
+                
             }, failure: { (error: Error) in
                 print("Error while trying to Favorite: \(error.localizedDescription)")
             })
@@ -99,6 +104,7 @@ class TweetDetailViewController: UIViewController {
     }
     
     
+    
     @IBAction func onRetweetButton(_ sender: Any) {
         
         let button = sender as? UIButton
@@ -108,6 +114,7 @@ class TweetDetailViewController: UIViewController {
             button?.isSelected = true
             //Gotta change the image and send a Retweet POST
             TwitterClient.sharedInstance?.retweet(id: (tweet?.tweetID!)!, success: { (tweet: Tweet) in
+                
                 
             }, failure: { (error: Error) in
                 print("Error while Retweeting: \(error.localizedDescription)")
