@@ -36,12 +36,12 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         //Set All the Elements in the View
         
         nameLabel.text = user!.name
-        handleLabel.text = user!.screenName
+        handleLabel.text = "@" + user!.screenName!
         profileImage.setImageWith(user!.profileURL!)
         
         if(replyToID != nil && replyToScreenName != nil){
             replyToLabel.isHidden = false
-            replyToLabel.text = "Reply to " + replyToScreenName!
+            replyToLabel.text = "Reply to @" + replyToScreenName!
         } else {
             replyToLabel.isHidden = true
         }

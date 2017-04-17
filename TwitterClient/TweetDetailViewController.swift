@@ -37,7 +37,7 @@ class TweetDetailViewController: UIViewController {
         
         
         nameLabel.text = tweet?.author
-        handleLabel.text = tweet?.authorHandle
+        handleLabel.text = "@" + (tweet?.authorHandle)!
         profileImage.setImageWith((tweet?.profileImageUrl!)!)
         text.text = tweet?.text
         timestampLabel.text = tweet?.timestampAsString
