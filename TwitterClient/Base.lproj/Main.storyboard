@@ -188,7 +188,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="compose" id="vWo-wU-oVe">
                             <connections>
-                                <segue destination="uIV-mr-hXV" kind="push" id="Bis-7L-sv6"/>
+                                <segue destination="uIV-mr-hXV" kind="presentation" modalPresentationStyle="overCurrentContext" id="Bis-7L-sv6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -208,16 +208,77 @@
                         <viewControllerLayoutGuide type="top" id="rCB-C5-D5O"/>
                         <viewControllerLayoutGuide type="bottom" id="2Du-N2-EE8"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0iI-sG-3ef">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="0iI-sG-3ef">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="imW-ih-0HP">
+                                <rect key="frame" x="16" y="28" width="343" height="230"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYf-A3-Sqo">
+                                        <rect key="frame" x="228" y="192" width="60" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Tweet">
+                                            <color key="titleColor" red="0.97504764743023919" green="1" blue="0.99835301504867013" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTweetButton:" destination="uIV-mr-hXV" eventType="touchUpInside" id="GdF-X0-cpB"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fHN-1I-M9Q">
+                                        <rect key="frame" x="14" y="8" width="55" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sabareesh Kappagantu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXt-OZ-S2Z">
+                                        <rect key="frame" x="77" y="8" width="141" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.97504764743023919" green="1" blue="0.99835301504867013" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@sbrsh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5t-IE-iLl">
+                                        <rect key="frame" x="77" y="27" width="46" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.53869214081938088" green="0.56832963197969544" blue="0.53438588314796232" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ng7-2K-0He">
+                                        <rect key="frame" x="62" y="192" width="61" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="0.96749911664215416" green="1" blue="0.99347914554692474" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCancelButton:" destination="uIV-mr-hXV" eventType="touchUpInside" id="xSW-gn-b5J"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="deD-GY-yEe">
+                                        <rect key="frame" x="14" y="66" width="321" height="118"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.11923811550423184" green="0.27524210464383991" blue="0.34258010786802029" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="jrm-ZX-e3S"/>
+                    <connections>
+                        <outlet property="handleLabel" destination="D5t-IE-iLl" id="w3u-ut-on4"/>
+                        <outlet property="nameLabel" destination="MXt-OZ-S2Z" id="Eta-fT-KOo"/>
+                        <outlet property="profileImage" destination="fHN-1I-M9Q" id="u8b-ry-U4d"/>
+                        <outlet property="textView" destination="deD-GY-yEe" id="dIU-7L-pPe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i84-zX-par" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3094" y="134"/>
+            <point key="canvasLocation" x="3093.5999999999999" y="133.5832083958021"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TA6-Kh-iBu">
