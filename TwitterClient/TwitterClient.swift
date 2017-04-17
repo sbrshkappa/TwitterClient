@@ -106,6 +106,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         
     }
     
+    //Reply to Tweet
+    func replyToTweet(message: String, replyTo: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        //Posting a Tweet
+        let params = ["status": message,"in_reply_to_status_id": replyTo]
+        
+        post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweetSuccessResponse = response as? NSDictionary
+            let tweetSuccess = Tweet(dictionary: tweetSuccessResponse!)
+            print(tweetSuccess.text ?? "Simple deafult")
+            success(tweetSuccess)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+        
+    }
+    
+    
     //Post a Retweet
     
     func retweet(id: String, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {

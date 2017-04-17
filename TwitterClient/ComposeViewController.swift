@@ -14,8 +14,13 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var replyToLabel: UILabel!
     
     var user: User?
+    
+    var isReply: Bool = false
+    var replyToID: String?
+    var replyToScreenName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +36,14 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         nameLabel.text = user!.name
         handleLabel.text = user!.screenName
         profileImage.setImageWith(user!.profileURL!)
+        
+        if(replyToID != nil && replyToScreenName != nil){
+            replyToLabel.isHidden = false
+            replyToLabel.text = "Reply to " + replyToScreenName!
+        } else {
+            replyToLabel.isHidden = true
+        }
+        
         
         
     }
@@ -61,13 +74,33 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         let tweetText = textView.text
         //Posting the Tweet
         if ((tweetText?.characters.count)! > 0){
-            TwitterClient.sharedInstance?.sendTweet(message: tweetText!, success: { (tweet: Tweet) in
+            if (replyToID != nil){
+                //While Replying to a Tweet 
                 
-                self.dismiss(animated: true, completion: nil)
+                TwitterClient.sharedInstance?.replyToTweet(message: tweetText!, replyTo: replyToID!, success: { (tweet: Tweet) in
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }, failure: { (error: Error) in
+                    print("Error while replying to Tweet: \(error.localizedDescription)")
+                })
                 
-            }, failure: { (error: Error) in
-                print("Error while posting Tweet: \(error.localizedDescription)")
-            })
+            } else {
+                
+                //While Composing a Tweet
+                
+                TwitterClient.sharedInstance?.sendTweet(message: tweetText!, success: { (tweet: Tweet) in
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    
+                }, failure: { (error: Error) in
+                    print("Error while posting Tweet: \(error.localizedDescription)")
+                })
+                
+            }
+            
+            
+            
         } else {
             print("Cannot Post Tweet! There is no text!")
         }

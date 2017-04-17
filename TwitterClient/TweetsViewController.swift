@@ -98,10 +98,23 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if( segue.identifier == "tweetDetailSegue" ){
             let indexPath = tweetsTableView.indexPath(for: sender as! TweetCell)!
-            print(indexPath.row)
             let tweet = tweets[indexPath.row]
             let tweetDetailVC = segue.destination as! TweetDetailViewController
             tweetDetailVC.tweet = tweet
+        }
+        if( segue.identifier == "replyComposeSegue"){
+            var indexPath: IndexPath!
+            if let button = sender as? UIButton {
+                if let superview = button.superview {
+                    if let cell = superview.superview as? TweetCell {
+                        indexPath = tweetsTableView.indexPath(for: cell)
+                    }
+                }
+            }
+            let tweet = tweets[indexPath.row]
+            let replyViewController = segue.destination as! ComposeViewController
+            replyViewController.replyToID = tweet.tweetID
+            replyViewController.replyToScreenName = tweet.authorHandle
         }
     }
 

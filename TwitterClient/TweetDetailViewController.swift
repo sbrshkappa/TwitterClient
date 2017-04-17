@@ -123,7 +123,13 @@ class TweetDetailViewController: UIViewController {
         }
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "replyFromDetailSegue"){
+            let replyTweetController = segue.destination as! ComposeViewController
+            replyTweetController.replyToID = tweet?.tweetID
+            replyTweetController.replyToScreenName = tweet?.authorHandle
+        }
+    }
     
 
     /*

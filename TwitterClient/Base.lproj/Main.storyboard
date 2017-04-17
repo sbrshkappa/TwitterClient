@@ -122,6 +122,9 @@
                                                         <constraint firstAttribute="height" constant="37" id="MaU-YG-60K"/>
                                                     </constraints>
                                                     <state key="normal" image="replyAction"/>
+                                                    <connections>
+                                                        <segue destination="uIV-mr-hXV" kind="presentation" identifier="replyComposeSegue" modalPresentationStyle="overCurrentContext" id="lol-eI-yjQ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XsA-4U-Cna">
                                                     <rect key="frame" x="138" y="85" width="37" height="37"/>
@@ -315,6 +318,9 @@
                                     <constraint firstAttribute="width" constant="32" id="uIX-Hc-8Gu"/>
                                 </constraints>
                                 <state key="normal" image="replyAction"/>
+                                <connections>
+                                    <segue destination="uIV-mr-hXV" kind="presentation" identifier="replyFromDetailSegue" modalPresentationStyle="overCurrentContext" id="rtk-o5-mWB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eWU-YC-LUX">
                                 <rect key="frame" x="112" y="271" width="40" height="40"/>
@@ -461,12 +467,19 @@
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="deD-GY-yEe">
-                                        <rect key="frame" x="14" y="66" width="321" height="118"/>
+                                        <rect key="frame" x="8" y="66" width="327" height="118"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Reply to @CodePath" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWg-zm-FaF">
+                                        <rect key="frame" x="210" y="42" width="125" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.53869214080000005" green="0.56832963199999997" blue="0.53438588310000001" alpha="0.9357074058" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.11923811550423184" green="0.27524210464383991" blue="0.34258010786802029" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -477,12 +490,13 @@
                         <outlet property="handleLabel" destination="D5t-IE-iLl" id="w3u-ut-on4"/>
                         <outlet property="nameLabel" destination="MXt-OZ-S2Z" id="Eta-fT-KOo"/>
                         <outlet property="profileImage" destination="fHN-1I-M9Q" id="u8b-ry-U4d"/>
+                        <outlet property="replyToLabel" destination="ZWg-zm-FaF" id="w1H-g4-ObS"/>
                         <outlet property="textView" destination="deD-GY-yEe" id="dIU-7L-pPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i84-zX-par" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3276" y="559"/>
+            <point key="canvasLocation" x="3276" y="558.17091454272872"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TA6-Kh-iBu">
@@ -510,4 +524,7 @@
         <image name="retweetAction" width="37" height="36"/>
         <image name="retweetInactive" width="16" height="16"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="lol-eI-yjQ"/>
+    </inferredMetricsTieBreakers>
 </document>
