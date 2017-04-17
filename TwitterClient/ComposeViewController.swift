@@ -15,6 +15,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var replyToLabel: UILabel!
+    @IBOutlet weak var characterCountLabel: UILabel!
+    var charCount: Int = 140
     
     var user: User?
     
@@ -44,6 +46,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             replyToLabel.isHidden = true
         }
         
+        characterCountLabel.text = "140"
+        
         
         
     }
@@ -58,6 +62,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
         let numberOfCharacters = newText.characters.count
+        charCount = 140 - numberOfCharacters
+        characterCountLabel.text = String(charCount)
         if(textView.text.characters.count > 140){
             print("Cannot add more characters!")
         }

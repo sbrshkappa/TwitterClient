@@ -480,6 +480,13 @@
                                         <color key="textColor" red="0.53869214080000005" green="0.56832963199999997" blue="0.53438588310000001" alpha="0.9357074058" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="140" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EWf-0R-lwq">
+                                        <rect key="frame" x="307" y="163" width="23" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.72291402284263961" green="0.72291402284263961" blue="0.72291402284263961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.11923811550423184" green="0.27524210464383991" blue="0.34258010786802029" alpha="0.9357074058219178" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -487,6 +494,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="characterCountLabel" destination="EWf-0R-lwq" id="4Ek-jC-nEg"/>
                         <outlet property="handleLabel" destination="D5t-IE-iLl" id="w3u-ut-on4"/>
                         <outlet property="nameLabel" destination="MXt-OZ-S2Z" id="Eta-fT-KOo"/>
                         <outlet property="profileImage" destination="fHN-1I-M9Q" id="u8b-ry-U4d"/>
