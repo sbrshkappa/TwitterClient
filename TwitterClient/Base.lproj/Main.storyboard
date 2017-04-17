@@ -494,12 +494,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="ng7-2K-0He" id="Thc-p0-4JD"/>
                         <outlet property="characterCountLabel" destination="EWf-0R-lwq" id="4Ek-jC-nEg"/>
+                        <outlet property="composeView" destination="imW-ih-0HP" id="TGq-Ug-EMQ"/>
                         <outlet property="handleLabel" destination="D5t-IE-iLl" id="w3u-ut-on4"/>
                         <outlet property="nameLabel" destination="MXt-OZ-S2Z" id="Eta-fT-KOo"/>
                         <outlet property="profileImage" destination="fHN-1I-M9Q" id="u8b-ry-U4d"/>
                         <outlet property="replyToLabel" destination="ZWg-zm-FaF" id="w1H-g4-ObS"/>
                         <outlet property="textView" destination="deD-GY-yEe" id="dIU-7L-pPe"/>
+                        <outlet property="tweetButton" destination="vYf-A3-Sqo" id="qO8-v6-Cfh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i84-zX-par" userLabel="First Responder" sceneMemberID="firstResponder"/>

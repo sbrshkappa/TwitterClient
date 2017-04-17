@@ -10,6 +10,9 @@ import UIKit
 
 class ComposeViewController: UIViewController, UITextViewDelegate {
 
+    @IBOutlet weak var tweetButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var composeView: UIView!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
@@ -26,6 +29,16 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        composeView.layer.cornerRadius = 5
+        composeView.layer.masksToBounds = true
+        
+        cancelButton.layer.cornerRadius = 5
+        cancelButton.layer.masksToBounds = true
+        
+        tweetButton.layer.cornerRadius = 5
+        tweetButton.layer.masksToBounds = true
+        
         textView.delegate = self
         
         //Get Current Account
@@ -42,6 +55,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         if(replyToID != nil && replyToScreenName != nil){
             replyToLabel.isHidden = false
             replyToLabel.text = "Reply to @" + replyToScreenName!
+            tweetButton.setTitle("Reply", for: .normal)
         } else {
             replyToLabel.isHidden = true
         }
