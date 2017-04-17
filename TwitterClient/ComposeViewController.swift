@@ -56,14 +56,12 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
             replyToLabel.isHidden = false
             replyToLabel.text = "Reply to @" + replyToScreenName!
             tweetButton.setTitle("Reply", for: .normal)
+            textView.text = "@" + replyToScreenName!
         } else {
             replyToLabel.isHidden = true
         }
         
         characterCountLabel.text = "140"
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
