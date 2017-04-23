@@ -1,42 +1,44 @@
 //
-//  TweetsViewController.swift
+//  MentionsViewController.swift
 //  TwitterClient
 //
-//  Created by Sabareesh Kappagantu on 4/15/17.
+//  Created by Sabareesh Kappagantu on 4/23/17.
 //  Copyright © 2017 Sabareesh Kappagantu. All rights reserved.
 //
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    @IBOutlet weak var tweetsTableView: UITableView!
+class MentionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var mentionsTableView: UITableView!
     var tweets: [Tweet]!
     let refreshControl = UIRefreshControl()
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Initializing a Refresh Control
+        //Initializing Refresh Control
         refreshControl.attributedTitle = NSAttributedString(string: "Pull To Get Latest Tweets")
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
-        tweetsTableView.addSubview(refreshControl)
+        mentionsTableView.addSubview(refreshControl)
         
-        tweetsTableView.delegate = self
-        tweetsTableView.dataSource = self
-        tweetsTableView.estimatedRowHeight = 200
-        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        
+        mentionsTableView.delegate = self
+        mentionsTableView.dataSource = self
+        mentionsTableView.estimatedRowHeight = 200
+        mentionsTableView.rowHeight = UITableViewAutomaticDimension
         
         let twitterColor = UIColor(red: 29/256, green: 202/256, blue: 255/256, alpha: 1.0)
         navigationController?.navigationBar.barTintColor = twitterColor
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        //Getting HomeTimeline data
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        
+        //Getting Mentions Timeline Data
+        TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
-            self.tweetsTableView.reloadData()
+            self.mentionsTableView.reloadData()
         }, failure: { (error: Error) in
             print("Error fetching Tweets. Error: \(error.localizedDescription)")
         })
@@ -44,17 +46,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         
 
         // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        //Everytime we comeback to this View reload the Table with New Data
-        //Getting HomeTimeline data
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            self.tweetsTableView.reloadData()
-        }, failure: { (error: Error) in
-            print("Error fetching Tweets. Error: \(error.localizedDescription)")
-        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,20 +55,17 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     
     func refreshControlAction(_ refreshControl: UIRefreshControl){
         
-        TwitterClient.sharedInstance?.homeTimeline(success: { (tweets: [Tweet]) in
+        TwitterClient.sharedInstance?.mentionsTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
-            self.tweetsTableView.reloadData()
+            self.mentionsTableView.reloadData()
             self.refreshControl.endRefreshing()
         }, failure: { (error: Error) in
             print("Error Refreshing. Error: \(error.localizedDescription)")
         })
     }
     
-    @IBAction func onLogoutButton(_ sender: Any) {
-        TwitterClient.sharedInstance?.logout()
-    }
     
-    //TableView Delegates
+    //Table View Delegates
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tweets != nil {
             return tweets.count
@@ -87,25 +75,25 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        let cell = mentionsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if( segue.identifier == "tweetDetailSegue" ){
-            let indexPath = tweetsTableView.indexPath(for: sender as! TweetCell)!
+        if( segue.identifier == "mentionsDetailSegue" ){
+            let indexPath = mentionsTableView.indexPath(for: sender as! TweetCell)!
             let tweet = tweets[indexPath.row]
             let tweetDetailVC = segue.destination as! TweetDetailViewController
             tweetDetailVC.tweet = tweet
         }
-        if( segue.identifier == "replyComposeSegue"){
+        if( segue.identifier == "mentionsReplySegue"){
             var indexPath: IndexPath!
             if let button = sender as? UIButton {
                 if let superview = button.superview {
                     if let cell = superview.superview as? TweetCell {
-                        indexPath = tweetsTableView.indexPath(for: cell)
+                        indexPath = mentionsTableView.indexPath(for: cell)
                     }
                 }
             }
@@ -115,6 +103,8 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             replyViewController.replyToScreenName = tweet.authorHandle
         }
     }
+    
+    
 
     /*
     // MARK: - Navigation
