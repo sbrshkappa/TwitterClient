@@ -85,8 +85,21 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    //Get a User's Timeline
+    func userTimeLine(screenName: String, success: @escaping ([Tweet]) -> (), failure: @escaping (Error)-> ()) {
+        let params = ["screen_name": screenName]
+        
+        get("1.1/statuses/user_timeline.json", parameters: params, progress: nil, success: {(task: URLSessionDataTask, response: Any?) in
+            let tweetsDictionaries = response as! [NSDictionary]
+            let tweets = Tweet.tweetsWithArray(dictionaries: tweetsDictionaries)
+            success(tweets)
+        }, failure: {(task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        })
+    }
+    
     //Get the Current User
-
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         //Getting User Data
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -99,6 +112,24 @@ class TwitterClient: BDBOAuth1SessionManager {
             print("Error: \(error.localizedDescription)")
             failure(error)
         })
+    }
+    
+    
+    //Get User for a ScreenName
+    
+    func getUserWithScreenName(screenName: String, success: @escaping (User) -> (), failure: @escaping (Error) -> ()){
+        let url = "https://api.twitter.com/1.1/users/show.json?screen_name=\(screenName)"
+        get(url, parameters: nil, progress: nil, success: {(task: URLSessionDataTask, response: Any?) in
+            let userDictionary = response as! NSDictionary
+            let user = User(dictionary: userDictionary)
+            print(userDictionary)
+            
+            success(user)
+        }, failure: {(task: URLSessionDataTask?, error: Error) in
+            print("Error: \(error.localizedDescription)")
+            failure(error)
+        })
+        
     }
     
     //Post a tweet

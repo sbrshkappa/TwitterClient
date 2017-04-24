@@ -8,7 +8,14 @@
 
 import UIKit
 
+@objc protocol TweetCellDelegate {
+    @objc optional func TweetCellDelegate(screenName: String)
+}
+
 class TweetCell: UITableViewCell {
+    
+    weak var delegate: TweetCellDelegate?
+    var rowNumber: Int?
     
 
     @IBOutlet weak var tweetTextLabel: UILabel!
@@ -60,6 +67,12 @@ class TweetCell: UITableViewCell {
         favoriteButton.setImage(UIImage(named: "likeAction"), for: .normal)
         favoriteButton.setImage(UIImage(named: "likeActionOn"), for: .selected)
         
+        
+        //Add a TapGesture to the image
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(tap)
+        
         // Initialization code
     }
 
@@ -67,6 +80,14 @@ class TweetCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    func handleTap(_ sender: Any){
+        if delegate != nil {
+            delegate!.TweetCellDelegate!(screenName: tweet.authorHandle!)
+        }
+        
     }
 
     @IBAction func onRetweet(_ sender: Any) {

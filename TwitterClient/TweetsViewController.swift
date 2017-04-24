@@ -8,11 +8,12 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetCellDelegate {
     
     @IBOutlet weak var tweetsTableView: UITableView!
     var tweets: [Tweet]!
     let refreshControl = UIRefreshControl()
+    var userProfile: User?
 
 
     override func viewDidLoad() {
@@ -89,7 +90,22 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tweetsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
+        cell.delegate = self
         return cell
+    }
+    
+    //Tweet Cell Delegate
+    func TweetCellDelegate(screenName: String) {
+        
+        //Get User for a ScreenName
+        TwitterClient.sharedInstance?.getUserWithScreenName(screenName: screenName, success: { (user: User) in
+            self.userProfile = user
+            self.performSegue(withIdentifier: "homeToProfileSegue", sender: nil)
+        }, failure: { (error: Error) in
+            print("Unable to fetch User Data: \(error.localizedDescription)")
+        })
+        
+        
     }
     
     
@@ -114,8 +130,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             replyViewController.replyToID = tweet.tweetID
             replyViewController.replyToScreenName = tweet.authorHandle
         }
+        if(segue.identifier == "homeToProfileSegue"){
+            let profileVC = segue.destination as! ProfileViewController
+            profileVC.user = self.userProfile!
+        }
     }
 
+    
     /*
     // MARK: - Navigation
 
