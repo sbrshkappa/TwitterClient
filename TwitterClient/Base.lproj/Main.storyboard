@@ -31,12 +31,14 @@
                                 </state>
                                 <connections>
                                     <action selector="onLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bd7-6e-6Iy"/>
-                                    <segue destination="Ada-83-bbD" kind="presentation" identifier="loginSegue" id="bPv-I6-0Dv"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="Ada-83-bbD" kind="presentation" identifier="loginSegue" id="zsO-9e-euT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
