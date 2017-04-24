@@ -8,11 +8,12 @@
 
 import UIKit
 
-class MentionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MentionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
 
     @IBOutlet weak var mentionsTableView: UITableView!
     var tweets: [Tweet]!
     let refreshControl = UIRefreshControl()
+    var userProfile: User?
     
     
     override func viewDidLoad() {
@@ -77,7 +78,23 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = mentionsTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
+        cell.delegate = self
         return cell
+    }
+    
+    
+    //Tweet Cell Delegate
+    func TweetCellDelegate(screenName: String) {
+        
+        //Get User for a ScreenName
+        TwitterClient.sharedInstance?.getUserWithScreenName(screenName: screenName, success: { (user: User) in
+            self.userProfile = user
+            self.performSegue(withIdentifier: "mentionsToProfileSegue", sender: nil)
+        }, failure: { (error: Error) in
+            print("Unable to fetch User Data: \(error.localizedDescription)")
+        })
+        
+        
     }
     
     
@@ -101,6 +118,10 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
             let replyViewController = segue.destination as! ComposeViewController
             replyViewController.replyToID = tweet.tweetID
             replyViewController.replyToScreenName = tweet.authorHandle
+        }
+        if(segue.identifier == "mentionsToProfileSegue") {
+            let profileVC = segue.destination as! ProfileViewController
+            profileVC.user = userProfile!
         }
     }
     

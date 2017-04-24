@@ -1017,6 +1017,7 @@
                     <navigationItem key="navigationItem" title="Mentions" id="kgU-qf-y1y"/>
                     <connections>
                         <outlet property="mentionsTableView" destination="wU4-lp-e8l" id="RZg-jp-92q"/>
+                        <segue destination="Me9-cr-U6S" kind="show" identifier="mentionsToProfileSegue" id="LsD-f5-LSG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RAq-6y-bCe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1069,8 +1070,8 @@
         <image name="retweetInactive" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="d7j-LO-OB9"/>
-        <segue reference="hVc-Ir-DWt"/>
-        <segue reference="6A8-xI-GDu"/>
+        <segue reference="d74-Pp-ujt"/>
+        <segue reference="LsD-f5-LSG"/>
+        <segue reference="x19-m7-98a"/>
     </inferredMetricsTieBreakers>
 </document>
