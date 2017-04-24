@@ -26,12 +26,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     var tweets: [Tweet]!
+    
+    let refreshControl = UIRefreshControl()
 
    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        //Initializing Refresh Control
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull To Get Latest Tweets")
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        profileTableView.addSubview(refreshControl)
         
         profileTableView.dataSource = self
         profileTableView.delegate = self
@@ -69,6 +77,18 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl){
+        
+        TwitterClient.sharedInstance?.userTimeLine(screenName: screenName, success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.profileTableView.reloadData()
+        }, failure: { (error: Error) in
+            print("Error Refreshing. Error: \(error.localizedDescription)")
+        })
+        self.refreshControl.endRefreshing()
     }
     
     
