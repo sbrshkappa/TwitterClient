@@ -207,7 +207,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetsTableView" destination="7co-qD-vCS" id="cVw-fz-zV3"/>
-                        <segue destination="Me9-cr-U6S" kind="presentation" identifier="homeToProfileSegue" id="hVc-Ir-DWt"/>
+                        <segue destination="Me9-cr-U6S" kind="show" identifier="homeToProfileSegue" id="hVc-Ir-DWt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryM-Gc-iFn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1071,6 +1071,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="d7j-LO-OB9"/>
         <segue reference="hVc-Ir-DWt"/>
-        <segue reference="lol-eI-yjQ"/>
+        <segue reference="6A8-xI-GDu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -85,9 +85,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "profileTweetDetailSegue" ){
-            let indexPath = profileTableView.indexPath(for: sender as! TweetCell)!
-            let tweet = tweets[indexPath.row]
+        if sender is UITableViewCell {
+            let cell = sender! as! TweetCell
+            let indexPath = profileTableView.indexPath(for: cell)
+            let tweet = tweets[(indexPath?.row)!]
             let tweetDetailVC = segue.destination as! TweetDetailViewController
             tweetDetailVC.tweet = tweet
         }
