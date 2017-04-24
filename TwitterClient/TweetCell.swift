@@ -67,6 +67,10 @@ class TweetCell: UITableViewCell {
         favoriteButton.setImage(UIImage(named: "likeAction"), for: .normal)
         favoriteButton.setImage(UIImage(named: "likeActionOn"), for: .selected)
         
+        profileImage.layer.cornerRadius = 5
+        profileImage.layer.borderColor = UIColor.lightGray.cgColor
+        profileImage.layer.borderWidth = 0.5
+        
         
         //Add a TapGesture to the image
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))

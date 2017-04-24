@@ -39,6 +39,10 @@ class TweetDetailViewController: UIViewController {
         nameLabel.text = tweet?.author
         handleLabel.text = "@" + (tweet?.authorHandle)!
         profileImage.setImageWith((tweet?.profileImageUrl!)!)
+        profileImage.layer.cornerRadius = 5
+        profileImage.layer.borderWidth = 0.5
+        profileImage.layer.borderColor = UIColor.lightGray.cgColor
+        
         text.text = tweet?.text
         timestampLabel.text = tweet?.timestampAsString
         retweetCountLabel.text = String(describing: (tweet?.retweetCount)!)

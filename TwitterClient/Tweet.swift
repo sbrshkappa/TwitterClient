@@ -52,7 +52,8 @@ class Tweet: NSObject {
                 if let realAuthorDictionary = realAuthorDictionary {
                     
                     author = realAuthorDictionary["name"] as? String
-                    let profileImageUrlString = realAuthorDictionary["profile_image_url_https"] as? String
+                    let profileImageUrlStringLowRes = realAuthorDictionary["profile_image_url_https"] as? String
+                    let profileImageUrlString = profileImageUrlStringLowRes?.replacingOccurrences(of: "_normal", with: "")
                     profileImageUrl = URL(string: profileImageUrlString!)
                     authorHandle = realAuthorDictionary["screen_name"] as? String
                     
@@ -107,7 +108,8 @@ class Tweet: NSObject {
             let authorDictionary = dictionary["user"] as? NSDictionary
             if let authorDictionary = authorDictionary {
                     author = authorDictionary["name"] as? String
-                    let profileImageUrlString = authorDictionary["profile_image_url_https"] as? String
+                    let profileImageUrlStringLowRes = authorDictionary["profile_image_url_https"] as? String
+                    let profileImageUrlString = profileImageUrlStringLowRes?.replacingOccurrences(of: "_normal", with: "")
                     profileImageUrl = URL(string: profileImageUrlString!)
                     authorHandle = authorDictionary["screen_name"] as? String
             }

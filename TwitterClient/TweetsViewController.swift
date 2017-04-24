@@ -94,6 +94,10 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tweetsTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //Tweet Cell Delegate
     func TweetCellDelegate(screenName: String) {
         

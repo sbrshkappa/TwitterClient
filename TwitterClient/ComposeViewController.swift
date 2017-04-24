@@ -51,6 +51,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         nameLabel.text = user!.name
         handleLabel.text = "@" + user!.screenName!
         profileImage.setImageWith(user!.profileURL!)
+        profileImage.layer.cornerRadius = 5
+        profileImage.layer.borderWidth = 0.5
+        profileImage.layer.borderColor = UIColor.lightGray.cgColor
         
         if(replyToID != nil && replyToScreenName != nil){
             replyToLabel.isHidden = false

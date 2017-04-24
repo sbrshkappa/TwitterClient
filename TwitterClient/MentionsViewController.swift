@@ -82,6 +82,10 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        mentionsTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     
     //Tweet Cell Delegate
     func TweetCellDelegate(screenName: String) {

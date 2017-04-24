@@ -46,6 +46,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         reloadData(user: user)
+    
+        
+        profileImage.layer.cornerRadius = 5
+        profileImage.layer.borderWidth = 0.5
+        profileImage.layer.borderColor = UIColor.lightGray.cgColor
         
         screenName = user.screenName
 
@@ -81,6 +86,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = profileTableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        profileTableView.deselectRow(at: indexPath, animated: true)
     }
     
     
